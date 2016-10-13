@@ -1,8 +1,6 @@
 FROM ubuntu:trusty
 MAINTAINER "Tasso Evangelista" <tasso@tassoevan.me>
 
-ARG UID
-
 ENV EMSO_URL=http://www.enq.ufrgs.br/alsoc/download/emso/bin-linux/emso-academic-beta-linux2-x86_64-0.10.8.tar.gz
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
@@ -17,6 +15,8 @@ RUN tar xvf emso.tar.gz && \
     mv emso /opt/emso && \
     rm emso.tar.gz
 
-RUN useradd -u "$UID" -U -m developer
+RUN useradd -U -m developer
+USER developer
 
-CMD /opt/emso/bin/emso
+CMD usermod -u "$UID" developer && \
+    /opt/emso/bin/emso
