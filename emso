@@ -1,23 +1,9 @@
 #!/bin/bash
 
-docker build --tag emso .
+docker build --tag emso "$(dirname ${BASH_SOURCE[0]})"
 docker run \
     --env "UID=$UID" \
     --env "DISPLAY=$DISPLAY" \
     --volume "/tmp/.X11-unix:/tmp/.X11-unix" \
     --volume "$HOME:/home/developer" \
     emso
-
-#version: '2'
-#services:
-#  emso:
-#    build:
-#      context: .
-#      args:
-#        - "UID=1000"
-#    environment:
-#      - "DISPLAY=$DISPLAY"
-#    volumes:
-#      - "/tmp/.X11-unix:/tmp/.X11-unix"
-#      - "$HOME:/home/developer"
-#
