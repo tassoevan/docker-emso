@@ -1,9 +1,11 @@
 #!/bin/bash
 
-docker build --tag emso "$(dirname ${BASH_SOURCE[0]})"
+DOCKER_IMAGE_TAG=tassoevan/emso:$(git rev-parse HEAD)
+
+docker build --tag "$DOCKER_IMAGE_TAG" "$(dirname ${BASH_SOURCE[0]})"
 docker run \
     --env "UID=$UID" \
     --env "DISPLAY=$DISPLAY" \
     --volume "/tmp/.X11-unix:/tmp/.X11-unix" \
     --volume "$HOME:/home/developer" \
-    emso
+    "$DOCKER_IMAGE_TAG"
