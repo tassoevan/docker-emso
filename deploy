@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DOCKER_IMAGE_TAG=tassoevan/emso:$(git rev-parse HEAD)
+
+docker build --tag "$DOCKER_IMAGE_TAG" "$(dirname ${BASH_SOURCE[0]})"
+docker push tassoevan/emso
